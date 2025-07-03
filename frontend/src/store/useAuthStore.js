@@ -17,7 +17,7 @@ export const useAuthStore = create((set, get) => ({
       const res = await axiosInstance.get("/auth/check");
 
       set({ authUser: res.data });
-      get.connectSocket()
+      get().connectSocket()
     } catch (error) {
       console.log("Error in checkAuth:", error);
       set({ authUser: null });
@@ -29,7 +29,6 @@ export const useAuthStore = create((set, get) => ({
   signup: async (data) => {
     set({ isSigningUp: true });
     try {
-      console.log("SIgning up...")
       const res = await axiosInstance.post("/auth/signup", data);
       console.log(res);
       set({ authUser: res.data });
@@ -71,7 +70,6 @@ export const useAuthStore = create((set, get) => ({
   updateProfile: async (data) => {
     set({ isUpdatingProfile: true });
     try {
-      console.log(data)
       const res = await axiosInstance.put("/auth/update-profile", data);
       set({ authUser: res.data });
       toast.success("Profile updated successfully");
